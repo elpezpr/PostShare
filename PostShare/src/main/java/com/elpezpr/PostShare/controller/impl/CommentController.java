@@ -17,32 +17,33 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    // Save a new comment
+    // ********** POST **********
+
     @PostMapping("/comments")
     public ResponseEntity<Comment> saveComment(@RequestBody @Valid Comment comment) {
         Comment savedComment = commentService.saveComment(comment);
         return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
 
-    // Get a comment by ID
+    // ********** GET **********
+
     @GetMapping("/comments/{id}")
     public ResponseEntity<Comment> getCommentById(@PathVariable Long id) {
         Optional<Comment> comment = commentService.getCommentById(id);
         return comment.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Get comments by post ID
     @GetMapping("/posts/{postId}/comments")
     public ResponseEntity<List<Comment>> getCommentsByPostId(@PathVariable Long postId) {
         List<Comment> comments = commentService.getCommentsByPostId(postId);
         return ResponseEntity.ok(comments);
     }
 
-    // Delete a comment by ID
+    // ********** DELETE **********
+
     @DeleteMapping("/comments/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCommentById(@PathVariable Long id) {
         commentService.deleteCommentById(id);
     }
 }
-

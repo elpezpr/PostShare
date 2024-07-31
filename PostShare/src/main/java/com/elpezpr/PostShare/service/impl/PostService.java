@@ -60,17 +60,14 @@ public class PostService implements IPostService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID must not be null");
         }
 
-        // Retrieve the existing post from the repository
         Post existingPost = postRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post with Id: " + id + " not found"));
 
-        // Update fields
         existingPost.setTitle(post.getTitle());
         existingPost.setContent(post.getContent());
         existingPost.setAuthor(post.getAuthor());
         existingPost.setMetadata(post.getMetadata());
 
-        // Save the updated post
         return postRepository.save(existingPost);
     }
 

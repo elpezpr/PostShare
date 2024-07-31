@@ -29,4 +29,11 @@ public class Post {
     private Set<Comment> comments;
 
     private String author;
+
+    @PrePersist
+    protected void onCreate() {
+        if (metadata != null && metadata.getCreatedDate() == null) {
+            metadata.setCreatedDate(LocalDateTime.now());
+        }
+    }
 }

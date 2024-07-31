@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostMetadata {
-    private LocalDateTime createdDate = LocalDateTime.now();;
+    private LocalDateTime createdDate;
     private String summary;
-
-
 }

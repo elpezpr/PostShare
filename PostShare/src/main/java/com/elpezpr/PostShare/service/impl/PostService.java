@@ -1,11 +1,13 @@
 package com.elpezpr.PostShare.service.impl;
 
 import com.elpezpr.PostShare.model.Post;
+import com.elpezpr.PostShare.repository.CommentRepository;
 import com.elpezpr.PostShare.repository.PostRepository;
 import com.elpezpr.PostShare.service.interfaces.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -14,7 +16,11 @@ import java.util.Optional;
 @Service
 public class PostService implements IPostService {
     @Autowired
-    private PostRepository postRepository;
+    PostRepository postRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
+
 
     @Override
     public List<Post> getAllPosts() {
@@ -83,10 +89,14 @@ public class PostService implements IPostService {
     }
 
     @Override
+    @Transactional
     public void deletePostById(Long id) {
         if (!postRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post with Id: " + id + " not found");
         }
+
+        commentRepository.deleteByPostId(id);
+
         postRepository.deleteById(id);
     }
 }

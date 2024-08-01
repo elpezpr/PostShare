@@ -46,7 +46,7 @@ class CommentControllerTest {
         post.setTitle("Post Title");
         post.setContent("Post Content");
         post.setAuthor("Author");
-        post.setMetadata(new PostMetadata()); // Ensure metadata is not null
+        post.setMetadata(new PostMetadata());
         post = postRepository.save(post);
 
         comment = new Comment();

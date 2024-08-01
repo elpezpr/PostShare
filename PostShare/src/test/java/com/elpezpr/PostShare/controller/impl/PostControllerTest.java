@@ -44,7 +44,7 @@ class PostControllerTest {
         post.setTitle("Initial Title");
         post.setContent("Initial Content");
         post.setAuthor("Author");
-        post.setMetadata(new PostMetadata()); // Ensure metadata is not null
+        post.setMetadata(new PostMetadata());
         post = postRepository.save(post);
 
     }

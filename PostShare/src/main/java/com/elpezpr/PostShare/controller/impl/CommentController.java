@@ -34,8 +34,10 @@ public class CommentController {
     }
 
     @GetMapping("/posts/{postId}/comments")
-    public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
-        return commentService.getCommentsByPostId(postId);
+    public ResponseEntity<List<Comment>> getCommentsByPostId(@PathVariable Long postId) {
+        List<Comment> comments = commentService.getCommentsByPostId(postId);
+        // If no comments found, return an empty list with a 200 status
+        return ResponseEntity.ok(comments);
     }
 
     // ********** DELETE **********

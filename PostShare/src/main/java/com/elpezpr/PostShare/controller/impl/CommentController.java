@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,23 +21,21 @@ public class CommentController {
     // ********** POST **********
 
     @PostMapping("/comments")
-    public ResponseEntity<Comment> saveComment(@RequestBody @Valid Comment comment) {
-        Comment savedComment = commentService.saveComment(comment);
-        return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
+    public Comment saveComment(@RequestBody @Valid Comment comment) {
+        return commentService.saveComment(comment);
     }
 
     // ********** GET **********
 
     @GetMapping("/comments/{id}")
-    public ResponseEntity<Comment> getCommentById(@PathVariable Long id) {
-        Optional<Comment> comment = commentService.getCommentById(id);
-        return comment.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public Comment getCommentById(@PathVariable Long id) {
+        return commentService.getCommentById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment not found"));
     }
 
     @GetMapping("/posts/{postId}/comments")
-    public ResponseEntity<List<Comment>> getCommentsByPostId(@PathVariable Long postId) {
-        List<Comment> comments = commentService.getCommentsByPostId(postId);
-        return ResponseEntity.ok(comments);
+    public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
+        return commentService.getCommentsByPostId(postId);
     }
 
     // ********** DELETE **********

@@ -33,6 +33,12 @@ public class Post {
 
     private String author;
 
+    public Post(String title, String content, String author) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
+
     @PrePersist
     protected void onCreate() {
         if (metadata != null && metadata.getCreatedDate() == null) {

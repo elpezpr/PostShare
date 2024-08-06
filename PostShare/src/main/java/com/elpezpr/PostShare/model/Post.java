@@ -21,7 +21,7 @@ public class Post {
 
     private String title;
 
-    @Column
+    @Column(length = 2000)
     private String content;
 
     @Embedded

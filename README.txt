@@ -53,7 +53,7 @@ To use the PostShare application, you need to run both the backend and frontend 
 
 Backend: Clone and start the backend server by running the Spring Boot application. Once running, the backend will be accessible via RESTful API endpoints.
 
-Frontend: Clone and run the frontend application from the following repository: PostShare-FrontEnd. Follow the instructions in the frontend repository's README to set up and start the user interface.
+Frontend: Clone and run the frontend application from the following repository: https://github.com/elpezpr/PostShare-FrontEnd. Follow the instructions in the frontend repository's README to set up and start the user interface.
 
 Interaction: Once both the backend and frontend are running, you can interact with the application through the frontend UI. This interface will allow you to create, view, update, and delete posts and comments directly, utilizing the backend APIs.
 
